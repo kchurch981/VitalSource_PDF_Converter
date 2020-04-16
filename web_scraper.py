@@ -10,8 +10,7 @@ from selenium.webdriver.chrome.options import Options
 class Scraper:
 
     def __init__(self,webpage, username, password):
-
-        
+  
         chrome_options = webdriver.ChromeOptions()
         self.webpage = webpage
         self.username = username
@@ -33,22 +32,18 @@ class Scraper:
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.minimize_window()
         self.driver.implicitly_wait(10)
-
-        
+ 
     def scrape_page(self):
-
 
         print("Loging in....")
         
         login_page = self.webpage.split("/#/")[0]
-        
-        
+          
         self.driver.get(login_page)
         
         self.driver.find_element_by_id("email-field").send_keys("%s" % self.username)
         password_field = self.driver.find_element_by_id("password-field").send_keys("%s" % self.password)
         self.driver.execute_script('document.getElementById("signin-form").submit()')
-        
         
         time.sleep(5)
         if "signin" in self.driver.current_url:
@@ -56,6 +51,7 @@ class Scraper:
             print("Check Credentials")
             self.driver.quit()
             sys.exit(1)
+            
         print("Scraping Webpage...")
         self.driver.get(self.webpage)
         time.sleep(10)
@@ -65,13 +61,13 @@ class Scraper:
         book_content = self.driver.find_element_by_id('epub-content')
         self.driver.switch_to.frame(book_content)
         book_source = self.driver.page_source
-        
-
+       
         self.source_to_web(book_source)
         
         self.driver.quit()
 
     def source_to_web(self, book_source):
+        
         print("Converting data into usable form...")
         true_source = "https://jigsaw.vitalsource.com/books/%s/epub/OPS" % self.driver.current_url.split('/')[5]
         pattern_no_body = re.compile(r'<style type="text\/css" media="print">.*<\/style>')
@@ -94,8 +90,6 @@ class Scraper:
         self.driver.get("%s/web.html" % current_dir)
         self.driver.execute_script('window.print();')
         
-        
-         
         
 if __name__ == "__main__":
 
