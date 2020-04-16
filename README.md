@@ -1,4 +1,4 @@
-# Vitalsouce PDF Converter
+# VitalsouRce PDF Converter
 
 ### Introduction
 This python script converts Online Vitalsource Ebooks into PDF format. This is achieved by scraping the desired webpage for the content HTML and creating an offline replica while removing the specific tags that prevent the user from normally printing the page. With these tags removed the page is printed to a PDF format for universal use. Due to the fact that only one chapter is displayed per webpage this proccess will need to be repeated for each chapter you wish to download.
